@@ -9,5 +9,17 @@ class HW1_1 {
         int numberOfSequences = Integer.parseInt(args[5]);
         float probability = Float.parseFloat(args[6]);
         String outputFileName = args[7];
+
+        int sum = A + C + G + T;
+
+        StringBuilder sequence = new StringBuilder();
+    }
+
+    private void generateSequence() {
+
+    }
+
+    private void writeToFile() {
+
     }
 }
