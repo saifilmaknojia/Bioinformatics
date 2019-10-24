@@ -109,14 +109,15 @@ class HW1_1 {
         }
     }
 
-    private void writeToFile(StringBuilder write, BufferedWriter br) {
+    public void writeToFile(StringBuilder write, BufferedWriter br) {
         try {
             br.write('>');
+            br.newLine();
             br.append(write);
             br.newLine();
-            br.write(
-                    "--------------------------------------------------------------------------------------------------------------------------------------------------");
-            br.newLine();
+//            br.write(
+//                    "--------------------------------------------------------------------------------------------------------------------------------------------------");
+//            br.newLine();
             br.flush();
         } catch (Exception e) {
             System.out.println("unable to write to file");
