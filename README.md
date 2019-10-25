@@ -10,6 +10,8 @@ Perform the below steps to compile and execute the program files:
 > javac *.java
 </br>
 Now all the files would be compiled. 
+<br>
+<br>
 <B>Execute files</B>
 1. To run each part of HW do
 > java hw1-1 10000 25 25 25 25 10 0.005 outputfile
