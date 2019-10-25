@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
-class HW1_1 {
+class hw1_1 {
     // static FileOutputStream output;
 
     public static void main(String[] args) throws IOException {
-        HW1_1 obj = new HW1_1();
+        hw1_1 obj = new hw1_1();
         File file = new File(args[7] + ".txt");
 
         // creates the file

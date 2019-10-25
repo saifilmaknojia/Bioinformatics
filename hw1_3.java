@@ -1,12 +1,5 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class hw1_3 {
 
@@ -19,7 +12,7 @@ public class hw1_3 {
 			// creates a FileReader Object
 			File file = new File(args[0] + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(file)); 
-			
+
 			file = new File(args[4] + ".txt");
 
 			// creates the file
@@ -27,11 +20,13 @@ public class hw1_3 {
 
 			// creates a FileWriter Object
 			FileWriter fwriter = new FileWriter(file, false);
-			
+
 			BufferedWriter bwriter = new BufferedWriter(fwriter);
-			
-			List<StringBuilder> sbList = new ArrayList<StringBuilder>();
-			
+
+			HashSet<Integer> track = new HashSet<Integer>();
+
+			Map<Integer,StringBuilder> list =  new HashMap<>();
+			int ct = 0;			
 			while ((i=br.read()) != -1) {
 				if(i == '>') {
 					do {
@@ -46,23 +41,75 @@ public class hw1_3 {
 						sb.append((char)i);
 						i = br.read();
 					}
-					sbList.add(sb);
+					// sbList.add(sb);
+					list.put(ct++, sb);
 				}
 			}
-//			write sequence assembler code here
+			//			write sequence assembler code here
+
+			PriorityQueue<SequenceDetails> pq = new PriorityQueue<>();
+
+			for(int x : list.keySet())
+			{
+				for(int y : list.keySet())
+				{
+					if(x>y)
+					{
+						SequenceDetails seq = dovetailAlignment(list.get(x), list.get(y), s, r, d);
+						seq.setParent1(x);
+						seq.setParent2(y);
+						pq.add(seq);
+					}
+				}
+			}
+
+			while(list.size() >= 1 && !pq.isEmpty() && pq.peek().score >= 0) {
+				SequenceDetails seq = pq.poll();
+				if(track.contains(seq.parent1) || track.contains(seq.parent2)) {
+					continue;
+				} 
+				track.add(seq.parent1);
+				track.add(seq.parent2);
+				list.remove(seq.parent1);
+				list.remove(seq.parent2);
+				for(int x : list.keySet()) {
+					SequenceDetails seq2 = dovetailAlignment(seq.sequence, list.get(x), s, r, d);
+					seq2.setParent1(ct);
+					seq2.setParent2(x);
+					pq.add(seq2);
+				}
+				list.put(ct++, seq.sequence);
+			}
+			hw1_1 obj = new hw1_1();
+			if(list.size() == 1) {
+				for(int y : list.keySet()) {
+					obj.writeToFile(list.get(y), bwriter);
+				}
+			}
+			else {
+				int length = Integer.MIN_VALUE;
+				StringBuilder output = new StringBuilder();
+				while(!pq.isEmpty()) {
+					SequenceDetails seq = pq.poll();
+					if(seq.sequence.length()>length) {
+						length = seq.sequence.length();
+						output = seq.sequence;
+					}
+				}
+				obj.writeToFile(output, bwriter);
+			}
+
 			bwriter.close();
 			br.close();
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Unable to locate file " + args[0]);
 			e.printStackTrace();
 		}
-		
-//		System.out.println(dovetailAlignment(new StringBuilder("ltcabddb"), new StringBuilder("cacdbdvl"), 1, -1, -1));
 	}
-	
-	private static StringBuilder dovetailAlignment(StringBuilder seq1, StringBuilder seq2, int s, int r, int d) {
+
+	private static SequenceDetails dovetailAlignment(StringBuilder seq1, StringBuilder seq2, int s, int r, int d) {
 		int m = seq1.length()+1, n = seq2.length()+1;
 		int matrix[][] = new int[m][n];
 		for(int i = 0; i<m;i++) {
@@ -94,16 +141,15 @@ public class hw1_3 {
 				val = matrix[m-1][i];
 			}
 		}
-		
 		if(max>val) {
-			return getFinalAlignment(x,n-1,matrix,s,d,r,seq1,seq2);
+			return new SequenceDetails(getFinalAlignment(x,n-1,matrix,s,d,r,seq1,seq2), max, 0, 0);
 		} else {
-			return getFinalAlignment(m-1,y,matrix,s,d,r,seq1,seq2);
+			return new SequenceDetails(getFinalAlignment(m-1,y,matrix,s,d,r,seq1,seq2), val, 0, 0);
 		}
-		
-		
+
+
 	}
-	
+
 	private static StringBuilder getFinalAlignment(int m, int n, int matrix[][], int s, int d, int r, StringBuilder seq1, StringBuilder seq2) {
 		int i = m, j = n;
 		StringBuilder st = new StringBuilder();
@@ -130,17 +176,49 @@ public class hw1_3 {
 		st = st.reverse();
 		StringBuilder output = new StringBuilder();
 		if(i==0) {
-			output.append(seq2.substring(0, j-1));
+			output.append(seq2.substring(0, j));
 			output.append(st);
-			output.append(seq1.substring(m-1, matrix.length-2));
+			output.append(seq1.substring(m-1, matrix.length-1));
 		} else {
-			output.append(seq1.substring(0, i-1));
+			output.append(seq1.substring(0, i));
 			output.append(st);
-			output.append(seq2.substring(n-1, matrix[0].length-2));
+			output.append(seq2.substring(n-1, matrix[0].length-1));
 		}
-		
+
 		return output;
 	}
+
+
+}
+
+class SequenceDetails implements Comparable<SequenceDetails>{
+	StringBuilder sequence;
+	int score, parent1, parent2;
+
+	SequenceDetails(StringBuilder sequence, int score, int parent1, int parent2){
+		this.sequence = sequence;
+		this.score = score;
+		this.parent1 = parent1;
+		this.parent2 = parent2;
+	}
+
+	public void setParent1(int par) {
+		this.parent1 = par;
+	}
+
+	public void setParent2(int par) {
+		this.parent2 = par;
+	}
+
+	@Override
+	public int compareTo(SequenceDetails seq) {
+		return seq.score-this.score;
+	}
+	
+	 @Override
+	    public String toString() { 
+	        return String.format(this.sequence + " " + this.score+ " "+ this.parent1 + " "+ this.parent2); 
+	    } 
 
 
 }

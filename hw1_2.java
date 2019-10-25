@@ -45,7 +45,6 @@ public class hw1_2 {
 					sequencePartitioning(sb, x, y, bwriter);	
 				}
 			}
-			
 			bwriter.close();
 			br.close();
 			
@@ -59,10 +58,10 @@ public class hw1_2 {
 	private static void sequencePartitioning(StringBuilder inSequence, int x, int y, BufferedWriter bwriter) {
 		int i = 0, len;
 		Random rand = new Random();
-		HW1_1 obj = new HW1_1();
+		hw1_1 obj = new hw1_1();
 		while(inSequence.length() - i >= x) {
 			len = rand.nextInt((y - x) + 1) + x;
-			if(i+len >= inSequence.length()) {
+			if(i+len > inSequence.length()) {
 				continue;
 			}
 			obj.writeToFile(new StringBuilder(inSequence.substring(i, i+len)), bwriter);
