@@ -1,5 +1,10 @@
 # Bioinformatics_HW1
-
+</br>
+Amruta Basrur
+</br>
+Shaifil Maknojia
+</br>
+</br>
 Perform the below steps to compile and execute the program files:
 </br>
 </br>
