@@ -6,8 +6,7 @@ public class hw1_3 {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		try {
-			int i;
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = null;
 			int s = Integer.parseInt(args[1]), r = Integer.parseInt(args[2]), d = Integer.parseInt(args[3]);
 			// creates a FileReader Object
 			File file = new File(args[0] + ".txt");
@@ -20,30 +19,25 @@ public class hw1_3 {
 
 			// creates a FileWriter Object
 			FileWriter fwriter = new FileWriter(file, false);
-
+			String ip;
 			BufferedWriter bwriter = new BufferedWriter(fwriter);
 
 			HashSet<Integer> track = new HashSet<Integer>();
 
 			Map<Integer,StringBuilder> list =  new HashMap<>();
-			int ct = 0;			
-			while ((i=br.read()) != -1) {
-				if(i == '>') {
-					do {
-						i = br.read();
-					}
-					while(i != '\r' && i != '\n'); 
-					if((i = br.read()) == '\n') {
-						i = br.read();
+			int ct = 0;
+			while ((ip = br.readLine()) != null) {
+				if(ip.charAt(0) == '>') {
+					if(sb!=null) {
+						list.put(ct++, sb);
 					}
 					sb = new StringBuilder();
-					while(i != '\r' && i != '\n') {
-						sb.append((char)i);
-						i = br.read();
-					}
-					// sbList.add(sb);
-					list.put(ct++, sb);
+					continue;
 				}
+				sb.append(ip);
+			}
+			if(sb!=null) {
+				list.put(ct++, sb);
 			}
 			//			write sequence assembler code here
 

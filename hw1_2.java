@@ -12,8 +12,7 @@ public class hw1_2 {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		try {
-			int i;
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = null;
 			int x = Integer.parseInt(args[1]), y = Integer.parseInt(args[2]);
 			// creates a FileReader Object
 			File file = new File(args[0] + ".txt");
@@ -26,24 +25,20 @@ public class hw1_2 {
 
 			// creates a FileWriter Object
 			FileWriter fwriter = new FileWriter(file, false);
-			
+			String ip;
 			BufferedWriter bwriter = new BufferedWriter(fwriter);
-			while ((i=br.read()) != -1) {
-				if(i == '>') {
-					do {
-						i = br.read();
-					}
-					while(i != '\r' && i != '\n'); 
-					if((i = br.read()) == '\n') {
-						i = br.read();
+			while ((ip = br.readLine()) != null) {
+				if(ip.charAt(0) == '>') {
+					if(sb!=null) {
+						sequencePartitioning(sb, x, y, bwriter);
 					}
 					sb = new StringBuilder();
-					while(i != '\r' && i != '\n') {
-						sb.append((char)i);
-						i = br.read();
-					}
-					sequencePartitioning(sb, x, y, bwriter);	
+					continue;
 				}
+				sb.append(ip);	
+			}
+			if(sb!=null) {
+				sequencePartitioning(sb, x, y, bwriter);
 			}
 			bwriter.close();
 			br.close();
