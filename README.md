@@ -9,14 +9,8 @@ Perform the below steps to compile and execute the program files:
 3. Goto the folder and execute below command
 > javac *.java
 Now all the files would be compiled.
-</br>
-</br>
 <B>Execute files</B>
 1. To run each part of HW do
-</br>
-> javac *.java
 > java hw1-1 10000 25 25 25 25 10 0.005 outputfile
-</br>
 > java hw1-2 inputfile 100 150 outputfile
-</br>
 > java hw1-3 inputfile 1 -1 -3 outputfile
