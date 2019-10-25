@@ -5,9 +5,7 @@ Perform the below steps to compile and execute the program files:
 <br>
 <B> Complile file</B>
 1. Extract the submission into a folder
-<br>
 2. Open command promt
-</br>
 3. Goto the folder and execute below command
 > javac *.java
 </br>
