@@ -13,7 +13,7 @@ public class hw1_2 {
 		// TODO Auto-generated method stub
 		try {
 			int i;
-			StringBuffer sb = new StringBuffer();
+			StringBuilder sb = new StringBuilder();
 			int x = Integer.parseInt(args[1]), y = Integer.parseInt(args[2]);
 			// creates a FileReader Object
 			File file = new File(args[0] + ".txt");
@@ -37,7 +37,7 @@ public class hw1_2 {
 					if((i = br.read()) == '\n') {
 						i = br.read();
 					}
-					sb = new StringBuffer();
+					sb = new StringBuilder();
 					while(i != '\r' && i != '\n') {
 						sb.append((char)i);
 						i = br.read();
@@ -56,7 +56,7 @@ public class hw1_2 {
 		}
 	}
 
-	private static void sequencePartitioning(StringBuffer inSequence, int x, int y, BufferedWriter bwriter) {
+	private static void sequencePartitioning(StringBuilder inSequence, int x, int y, BufferedWriter bwriter) {
 		int i = 0, len;
 		Random rand = new Random();
 		HW1_1 obj = new HW1_1();
