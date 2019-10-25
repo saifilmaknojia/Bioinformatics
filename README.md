@@ -24,7 +24,7 @@ Now all the files would be compiled.
 java hw1_1 10000 25 25 25 25 10 0.005 outputfile
 </br>
 </br>
-java hw1_2 inputfile 100 150 outputfile
+java hw1_2 outputfile 100 150 outputfile1
 </br>
 </br>
-java hw1_3 inputfile 1 -1 -3 outputfile
+java hw1_3 outputfile1 1 -1 -3 outputfile2
