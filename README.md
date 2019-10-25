@@ -21,10 +21,10 @@ Now all the files would be compiled.
 </br>
 1.To run each part of HW do
 </br>
-java hw1-1 10000 25 25 25 25 10 0.005 outputfile
+java hw1_1 10000 25 25 25 25 10 0.005 outputfile
 </br>
 </br>
-java hw1-2 inputfile 100 150 outputfile
+java hw1_2 inputfile 100 150 outputfile
 </br>
 </br>
-java hw1-3 inputfile 1 -1 -3 outputfile
+java hw1_3 inputfile 1 -1 -3 outputfile
