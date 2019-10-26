@@ -1,4 +1,5 @@
 # Bioinformatics_HW1
+
 </br>
 Amruta Basrur
 </br>
@@ -26,10 +27,10 @@ Now all the files would be compiled.
 </br>
 1.To run each part of HW do
 </br>
-java hw1_1 10000 25 25 25 25 10 0.005 outputfile
+java hw1_1 10000 25 25 25 25 10 0.005 output_hw1_1
 </br>
 </br>
-java hw1_2 outputfile 100 150 outputfile1
+java hw1_2 output_hw1_1 100 150 output_hw1_2
 </br>
 </br>
-java hw1_3 outputfile1 1 -1 -3 outputfile2
+java hw1_3 output_hw1_2 1 -1 -3 output_hw1_3
