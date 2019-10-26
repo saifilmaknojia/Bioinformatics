@@ -113,20 +113,20 @@ class hw1_1 {
         try {
             br.write('>');
             br.newLine();
-            int i =0;
-            while(i<write.length()) {
-            	if(write.length() < i+80) {
-            		br.append(write.substring(i, write.length()));
-            		br.newLine();
-            		break;
-            	}
-            	br.append(write.substring(i, i+80));
-            	i=i+80;
+            int i = 0;
+            while (i < write.length()) {
+                if (write.length() < i + 80) {
+                    br.append(write.substring(i, write.length()));
+                    br.newLine();
+                    break;
+                }
+                br.append(write.substring(i, i + 80));
+                i = i + 80;
                 br.newLine();
             }
-//            br.write(
-//                    "--------------------------------------------------------------------------------------------------------------------------------------------------");
-//            br.newLine();
+            // br.write(
+            // "--------------------------------------------------------------------------------------------------------------------------------------------------");
+            // br.newLine();
             br.flush();
         } catch (Exception e) {
             System.out.println("unable to write to file");
