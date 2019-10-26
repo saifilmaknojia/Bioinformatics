@@ -121,6 +121,7 @@ public class hw1_3 {
 			}
 		}
 		int x=1,y=1;
+		
 		max = matrix[1][n-1];
 		for(int i = 2; i<m ; i++) {
 			if(max<matrix[i][n-1]) {
@@ -147,7 +148,7 @@ public class hw1_3 {
 	private static StringBuilder getFinalAlignment(int m, int n, int matrix[][], int s, int d, int r, StringBuilder seq1, StringBuilder seq2) {
 		int i = m, j = n;
 		StringBuilder st = new StringBuilder();
-		while(i==0 || j==0) {
+		while(i!=0 && j!=0) {
 			if(matrix[i-1][j-1]+s == matrix[i][j] && seq1.charAt(i-1) == seq2.charAt(j-1)) {
 				st.append(seq1.charAt(i-1));
 				i--;
@@ -173,12 +174,12 @@ public class hw1_3 {
 			output.append(seq2.substring(0, j));
 			output.append(st);
 			output.append(seq1.substring(m-1, matrix.length-1));
+			
 		} else {
 			output.append(seq1.substring(0, i));
 			output.append(st);
 			output.append(seq2.substring(n-1, matrix[0].length-1));
 		}
-
 		return output;
 	}
 
