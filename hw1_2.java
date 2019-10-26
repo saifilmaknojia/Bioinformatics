@@ -16,8 +16,8 @@ public class hw1_2 {
 			int x = Integer.parseInt(args[1]), y = Integer.parseInt(args[2]);
 			// creates a FileReader Object
 			File file = new File(args[0] + ".txt");
-			BufferedReader br = new BufferedReader(new FileReader(file)); 
-			
+			BufferedReader br = new BufferedReader(new FileReader(file));
+
 			file = new File(args[3] + ".txt");
 
 			// creates the file
@@ -28,21 +28,21 @@ public class hw1_2 {
 			String ip;
 			BufferedWriter bwriter = new BufferedWriter(fwriter);
 			while ((ip = br.readLine()) != null) {
-				if(ip.charAt(0) == '>') {
-					if(sb!=null) {
+				if (ip.charAt(0) == '>') {
+					if (sb != null) {
 						sequencePartitioning(sb, x, y, bwriter);
 					}
 					sb = new StringBuilder();
 					continue;
 				}
-				sb.append(ip);	
+				sb.append(ip);
 			}
-			if(sb!=null) {
+			if (sb != null) {
 				sequencePartitioning(sb, x, y, bwriter);
 			}
 			bwriter.close();
 			br.close();
-			
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Unable to locate file " + args[0]);
@@ -54,13 +54,13 @@ public class hw1_2 {
 		int i = 0, len;
 		Random rand = new Random();
 		hw1_1 obj = new hw1_1();
-		while(inSequence.length() - i >= x) {
+		while (inSequence.length() - i >= x) {
 			len = rand.nextInt((y - x) + 1) + x;
-			if(i+len > inSequence.length()) {
+			if (i + len > inSequence.length()) {
 				continue;
 			}
-			obj.writeToFile(new StringBuilder(inSequence.substring(i, i+len)), bwriter);
-			i = i+len;
+			obj.writeToFile(new StringBuilder(inSequence.substring(i, i + len)), bwriter);
+			i = i + len;
 		}
 	}
 
