@@ -39,8 +39,13 @@ class BioProject {
 			br.close();
 
 			insertEndGaps(sequenceArray, maxLength);
-
-			Pomsa.executePomsa(sequenceArray, maxLength);
+			if(Integer.parseInt(args[2]) == 1) {
+				Partitioning.partition(sequenceArray, maxLength, minLength);
+			}
+			else {
+				Pomsa.executePomsa(sequenceArray, maxLength);
+			}
+			
 
 			file = new File(args[1] + ".txt");
 

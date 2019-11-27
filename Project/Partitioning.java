@@ -1,18 +1,14 @@
-package Project;
-
 import java.util.*;
 
 class Partitioning {
-    public void partition() {
-        int sequenceArraySize = 40;
-        int min_cols = 40;
+    static void partition(List<StringBuilder> sequence, int maxLength, int min_cols) {
         int start = 0;
         for (int i = 0; i < min_cols; i++) {
             // check all characters in particular column
             char check = sequence.get(0).charAt(i);
             int count = 1;
 
-            for (int j = 1; j < sequenceArraySize; j++) {
+            for (int j = 1; j < sequence.size(); j++) {
                 if (check != sequence.get(j).charAt(i))
                     break;
 
@@ -21,13 +17,13 @@ class Partitioning {
 
             if (count == sequence.size()) {
                 // call PoMSA upto this index here
-                makeSubstrings(sequence, start, i);
+                makeSubstrings(sequence, start, i, maxLength);
                 start = i + 1;
             }
         }
     }
 
-    private void makeSubstrings(List<StringBuilder> sb, int left, int right) {
+    private static void makeSubstrings(List<StringBuilder> sb, int left, int right, int maxLength) {
         int size = sb.size();
         List<StringBuilder> partitionedList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -37,6 +33,6 @@ class Partitioning {
             partitionedList.add(current);
         }
 
-        executePomsa(partitionedList, 50);
+        Pomsa.executePomsa(partitionedList, maxLength);
     }
 }
