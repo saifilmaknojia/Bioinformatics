@@ -1,9 +1,11 @@
+// package Project;
+
 import java.util.*;
 
 class Pomsa {
 	// static FileOutputStream output;
 	
-	static void executePomsa(List<StringBuilder> sequenceArray, int maxLength) {
+	static void executePomsa(List<StringBuilder> sequenceArray, int maxLength, int threshold) {
 		// TODO Auto-generated method stub
 		char dominant;
 		int newMaxLength = 0;
@@ -13,7 +15,7 @@ class Pomsa {
 				if(i==maxLength-1 && sb.length()>newMaxLength ) {
 					newMaxLength = sb.length();
 				}
-				dominant = getDominant(sequenceArray, i);
+				dominant = getDominant(sequenceArray, i, threshold);
 				if(dominant != '.' && sb.charAt(i) != dominant) {
 					if(i>0 && sb.charAt(i-1) == dominant) {
 						sb.insert(i-1, '.');
@@ -41,7 +43,7 @@ class Pomsa {
 
 	}
 
-	private static char getDominant(List<StringBuilder> sequenceArray, int col) {
+	private static char getDominant(List<StringBuilder> sequenceArray, int col, int threshold) {
 		// TODO Auto-generated method stub
 		Map<Character, Integer> count = new HashMap<Character, Integer>() {/**
 			 * 
@@ -59,7 +61,7 @@ class Pomsa {
 			curr = sequenceArray.get(i).charAt(col);
 			count.put(curr, count.getOrDefault(curr, 0)+1);
 		}
-		int max = BioProject.threshold;
+		int max = threshold;
 		char retChar = '.';
 
 		for(char ch: count.keySet()) {

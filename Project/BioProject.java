@@ -1,3 +1,5 @@
+// package Project;
+
 import java.io.*;
 import java.util.*;
 
@@ -5,7 +7,7 @@ class BioProject {
 	// static FileOutputStream output;
 
 	static List<StringBuilder> outputArray = new ArrayList<>();
-	static int threshold = 2;
+	// static int threshold = 2;
 	public static void main(String[] args) throws IOException {
 
 		try{
@@ -39,11 +41,11 @@ class BioProject {
 			br.close();
 
 			insertEndGaps(sequenceArray, maxLength);
-			if(Integer.parseInt(args[2]) == 1) {
-				Partitioning.partition(sequenceArray, maxLength, minLength);
+			if(args[2].equals("Yes")) {
+				Partitioning.partition(sequenceArray, maxLength, minLength, Integer.parseInt(args[3]));
 			}
 			else {
-				Pomsa.executePomsa(sequenceArray, maxLength);
+				Pomsa.executePomsa(sequenceArray, maxLength, Integer.parseInt(args[3]));
 			}
 			
 

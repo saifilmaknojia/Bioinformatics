@@ -1,3 +1,5 @@
+// package Project;
+
 import java.io.*;
 import java.util.*;
 
@@ -28,8 +30,8 @@ class SequenceGenerator {
         // int T = 100;
         for (int j = 0; j < numberOfSequences; j++) {
             // generate sequences
-            int low = 40;
-            int high = 50;
+            int low = 500;
+            int high = 600;
             int sequenceLength = rand.nextInt(high - low) + low;
             StringBuilder sequence = new StringBuilder();
             for (int i = 1; i <= sequenceLength; i++) {
