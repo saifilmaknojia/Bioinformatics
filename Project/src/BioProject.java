@@ -1,5 +1,3 @@
-// package Project;
-
 import java.io.*;
 import java.util.*;
 
@@ -15,7 +13,7 @@ class BioProject {
 			int maxLength = 0;
 			int minLength = Integer.MAX_VALUE;
 			// creates a FileReader Object
-			File file = new File(args[0] + ".txt");
+			File file = new File("input" + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String ip;
 			StringBuilder sb = null;
@@ -62,11 +60,6 @@ class BioProject {
 				writeToFile(outputArray.get(i), bwriter);
 			}
 			bwriter.close();
-//			outputArray.add(new StringBuilder("AATGGAAATAT"));
-//			outputArray.add(new StringBuilder("AGCGGAGCCAT"));
-//			outputArray.add(new StringBuilder("AATAAGGAATG"));
-//			outputArray.add(new StringBuilder("AACGGGGAGCT"));
-			System.out.println(calculateAlignmentScore());
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -108,36 +101,5 @@ class BioProject {
 	        }
 
 	    }
-	 
-	 static int calculateAlignmentScore() {
-		 int totalScore = 0;
-		 for(int i=0;i<outputArray.size();i++) {
-			 for(int j=0;j<outputArray.size()-1;j++) {
-				 totalScore+=alignSequences(outputArray.get(i), outputArray.get(j));
-			 }
-		 }
-		 return totalScore;
-	 }
-	 
-	 private static int alignSequences(StringBuilder sb1, StringBuilder sb2) {
-		 int score = 0;
-		 for(int i=0;i<sb1.length();i++) {
-			 if(sb1.charAt(i) == '.' && sb2.charAt(i) == '.') {
-				 continue;
-			 }
-			 else if(sb1.charAt(i) == '.' || sb2.charAt(i) == '.') {
-				 score-=3;
-			 }
-			 else if(sb1.charAt(i)==sb2.charAt(i)) {
-				 score++;
-			 }
-			 else {
-				 score-=1;
-			 }
-		 }
-		 
-		 return score;
-	 }
-	 
 	 
 }
