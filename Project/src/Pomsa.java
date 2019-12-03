@@ -14,14 +14,14 @@ class Pomsa {
 					newMaxLength = sb.length();
 				}
 				dominant = getDominant(sequenceArray, i, threshold);
-				if(dominant != '.' && sb.charAt(i) != dominant) {
+				if(dominant != '-' && sb.charAt(i) != dominant) {
 					if(i>0 && sb.charAt(i-1) == dominant) {
-						sb.insert(i-1, '.');
+						sb.insert(i-1, '-');
 					}
-					if(i<maxLength && sb.charAt(i+1) == dominant) {
+					if(i<maxLength-1 && sb.charAt(i+1) == dominant) {
 						for(int k=0;k<sequenceArray.size();k++) {
 							if(k!=j) {
-								sequenceArray.get(k).insert(i, '.');
+								sequenceArray.get(k).insert(i, '-');
 							}
 						}
 					}
@@ -60,7 +60,7 @@ class Pomsa {
 			count.put(curr, count.getOrDefault(curr, 0)+1);
 		}
 		int max = threshold;
-		char retChar = '.';
+		char retChar = '-';
 
 		for(char ch: count.keySet()) {
 			if(max < count.get(ch)) {

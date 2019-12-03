@@ -40,8 +40,9 @@ class AlignmentScore {
 	
 	 static int calculateAlignmentScore(List<StringBuilder> sequenceArray) {
 		 int totalScore = 0;
-		 for(int i=0;i<sequenceArray.size();i++) {
-			 for(int j=0;j<sequenceArray.size()-1;j++) {
+		 for(int i=0;i<sequenceArray.size()-1;i++) {
+			 for(int j=i+1;j<sequenceArray.size();j++) {
+				 System.out.println(i+" "+j+" "+sequenceArray.get(i).length()+" "+sequenceArray.get(j).length());
 				 totalScore+=alignSequences(sequenceArray.get(i), sequenceArray.get(j));
 			 }
 		 }
@@ -50,18 +51,19 @@ class AlignmentScore {
 	 
 	 private static int alignSequences(StringBuilder sb1, StringBuilder sb2) {
 		 int score = 0;
-		 for(int i=0;i<sb1.length();i++) {
-			 if(sb1.charAt(i) == '.' && sb2.charAt(i) == '.') {
+		 int min = sb1.length()>sb2.length()?sb2.length():sb1.length();
+		 for(int i=0;i<min;i++) {
+			 if(sb1.charAt(i) == '-' && sb2.charAt(i) == '-') {
 				 continue;
 			 }
-			 else if(sb1.charAt(i) == '.' || sb2.charAt(i) == '.') {
+			 else if(sb1.charAt(i) == '-' || sb2.charAt(i) == '-') {
 				 score-=3;
 			 }
 			 else if(sb1.charAt(i)==sb2.charAt(i)) {
 				 score++;
 			 }
 			 else {
-				 score-=1;
+				 score--;
 			 }
 		 }
 		 

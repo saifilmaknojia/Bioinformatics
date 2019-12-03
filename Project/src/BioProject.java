@@ -13,7 +13,7 @@ class BioProject {
 			int maxLength = 0;
 			int minLength = Integer.MAX_VALUE;
 			// creates a FileReader Object
-			File file = new File("input" + ".txt");
+			File file = new File(args[0] + ".txt");
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String ip;
 			StringBuilder sb = null;
@@ -39,7 +39,7 @@ class BioProject {
 			br.close();
 
 			insertEndGaps(sequenceArray, maxLength);
-			if(args[2].equals("Yes")) {
+			if(args[2].equalsIgnoreCase("Yes")) {
 				Partitioning.partition(sequenceArray, maxLength, minLength, Integer.parseInt(args[3]));
 			}
 			else {
@@ -74,7 +74,7 @@ class BioProject {
 		for(StringBuilder st:sequenceArray) {
 			int n = st.length();
 			while(n<maxLength) {
-				st.append('.');
+				st.append('-');
 				n++;
 			}
 		}
