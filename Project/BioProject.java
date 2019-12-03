@@ -5,7 +5,7 @@ class BioProject {
 	// static FileOutputStream output;
 
 	static List<StringBuilder> outputArray = new ArrayList<>();
-	static int threshold = 2;
+	static int threshold = 22;
 	public static void main(String[] args) throws IOException {
 
 		try{
@@ -60,7 +60,11 @@ class BioProject {
 				writeToFile(outputArray.get(i), bwriter);
 			}
 			bwriter.close();
-
+//			outputArray.add(new StringBuilder("AATGGAAATAT"));
+//			outputArray.add(new StringBuilder("AGCGGAGCCAT"));
+//			outputArray.add(new StringBuilder("AATAAGGAATG"));
+//			outputArray.add(new StringBuilder("AACGGGGAGCT"));
+			System.out.println(calculateAlignmentScore());
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -102,4 +106,36 @@ class BioProject {
 	        }
 
 	    }
+	 
+	 static int calculateAlignmentScore() {
+		 int totalScore = 0;
+		 for(int i=0;i<outputArray.size();i++) {
+			 for(int j=0;j<outputArray.size()-1;j++) {
+				 totalScore+=alignSequences(outputArray.get(i), outputArray.get(j));
+			 }
+		 }
+		 return totalScore;
+	 }
+	 
+	 private static int alignSequences(StringBuilder sb1, StringBuilder sb2) {
+		 int score = 0;
+		 for(int i=0;i<sb1.length();i++) {
+			 if(sb1.charAt(i) == '.' && sb2.charAt(i) == '.') {
+				 continue;
+			 }
+			 else if(sb1.charAt(i) == '.' || sb2.charAt(i) == '.') {
+				 score-=3;
+			 }
+			 else if(sb1.charAt(i)==sb2.charAt(i)) {
+				 score++;
+			 }
+			 else {
+				 score-=1;
+			 }
+		 }
+		 
+		 return score;
+	 }
+	 
+	 
 }
