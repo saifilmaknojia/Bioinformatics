@@ -1,6 +1,3 @@
-/Pomsa.class
-/Pomsa$1.class
-/BioProject.class
-/Partitioning.class
-/SequenceGenerator.class
 /bin/
+*.class
+.gitignore

@@ -5,30 +5,30 @@ class SequenceGenerator {
     public static void main(String[] args) throws IOException {
 
         SequenceGenerator obj = new SequenceGenerator();
-        File file = new File("sequence" + ".txt");
-
+        File file = new File(args[0] + ".txt");
+        int numberOfSequences = Integer.parseInt(args[1]);
+        int startSequenceRange = Integer.parseInt(args[2]);
+        int endSequenceRange = Integer.parseInt(args[3]);
+        float mutationRate = Float.parseFloat(args[4]);
         // creates the file
         file.createNewFile();
 
         // creates a FileWriter Object
         FileWriter fwriter = new FileWriter(file, false);
         BufferedWriter bwriter = new BufferedWriter(fwriter);
-        obj.generateSequence(bwriter);
+        obj.generateSequence(bwriter, numberOfSequences, startSequenceRange, endSequenceRange, mutationRate);
         bwriter.close();
 
     }
 
-    private void generateSequence(BufferedWriter br) {
+    private void generateSequence(BufferedWriter br, int numberOfSequences, int low, int high, float probability) {
         Random rand = new Random();
-        int numberOfSequences = rand.nextInt(16);
-        System.out.println("Number of Sequences = " + numberOfSequences);
+        // System.out.println("Number of Sequences = " + numberOfSequences);
         int A = 25;
         int C = 50;
         int G = 75;
         // int T = 100;
 
-        int low = 100;
-        int high = 175;
         int sequenceLength = rand.nextInt(high - low) + low;
         StringBuilder sequence = new StringBuilder();
         // Generate first sequence
@@ -45,8 +45,6 @@ class SequenceGenerator {
         }
         // System.out.println(sequence.length());
         writeToFile(sequence, br);
-
-        float probability = 0.05f;
         // generate remaining sequences;
         for (int i = 0; i < numberOfSequences - 1; i++) {
             int count_mutate = 0;
@@ -107,7 +105,7 @@ class SequenceGenerator {
                 }
             }
 
-            // System.out.println("Sequence Length "+sequenceLength);
+            // System.out.println("Sequence Length " + sequenceLength);
             System.out.println("Mutated " + count_mutate);
             writeToFile(sequence, br);
         }
