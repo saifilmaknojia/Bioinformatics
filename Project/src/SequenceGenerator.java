@@ -106,7 +106,7 @@ class SequenceGenerator {
             }
 
             // System.out.println("Sequence Length " + sequenceLength);
-            System.out.println("Mutated " + count_mutate);
+            // System.out.println("Mutated " + count_mutate);
             writeToFile(sequence, br);
         }
     }
